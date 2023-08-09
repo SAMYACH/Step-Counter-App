@@ -1,0 +1,20 @@
+C#,(20,21,22)
+Aspdot net MVc(25,26,27,28,29)
+sql (1,2,3 Aug)
+Web Api(4,5)
+7 aug(entity framework) weekends
+wcf(8-12 aug)
+15 aug to 18 ado .net
+19.20,21 revision
+
+
+
+programming for c# kam se kam 20 program(2 daya)
+.net interview questions from saved .net tricks website(during each day)
+
+
+
+
+dot net and dot net core(5 days)
+angular(10 days)
+web services and java script(5 dysa)

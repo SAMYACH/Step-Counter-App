@@ -1,0 +1,30 @@
+Angular is javascript framwork for building single page client applications using HTML and typeScript(superset of jaascript)
+
+single page client application: in SPA, Once the initial application has loaded into the browser,
+ further intaction only load the additional data needed without reloading the entire page
+
+Data binding is a phenomenon that allows any internet user to manipulate Web page elements using a Web browser.
+
+
+Bitbucket is a web-based storage service for code projects using Git.(Bitbucket is a Git Code Management Solution Built for Teams)
+
+What are decorators in Angular? 
+Decorators are a design pattern or functions that define how Angular features work. They are used to make prior modifications to a class, service, or filter. Angular supports four types of decorators, they are:
+
+Class Decorators
+Property Decorators
+Method Decorators
+Parameter Decorators
+
+ The Component is a fundamental block of Angular and multiple components will make up your application.
+
+Directives are classes that add additional behavior to elements in your Angular applications .
+
+Modules
+A module is a place where we can group components, directives, services, and pipes. Module decides whether the components, directives, etc can be
+ used by other modules, by exporting or hiding these elements. Every module is defined with a @NgModule decorator.
+
+componet
+genric
+two way binding
+web api question (action

@@ -1,0 +1,75 @@
+why we use for loop:
+For Loop: The JavaScript for loop is used to iterate through the array or the elements for a specified number of times.
+for loop repeats until a specified condition evaluates to false.
+
+for loop: for loop provides a concise way of writing the loop structure.
+ Unlike a while loop, a for statement consumes the initialization, condition, and 
+increment/decrement in one line thereby providing a shorter, easy-to-debug structure of looping. Syntax:
+
+for (initialization condition; testing condition; 
+                              increment/decrement)
+{
+    statement(s)
+
+}
+The best use for these loops is as follows:
+
+For arrays, use for...of (or forEach).
+For objects, use for...in.
+If you work with arrays and need access to indexes, use for or forEach.
+for...in loop
+This loop was introduced in ES6 as a tool to use with enumerables to iterate over the properties of the object:
+
+As for speed, the situation is clear: When iterating over arrays, for...in is much slower than the for...of loop that is specific to arrays, strings, and NodeLists.
+
+for of:
+for...of loop
+Also introduced in ES6, for...of is specific to iterables: arrays, strings, NodeLists, sets, and maps. It comes with a great set of features:
+
+It checks whether an element is iterable (using GetIterator operation) and throws an appropriate TypeError if it's not:
+It’s faster than forEach.
+
+for loop
+This loop is just the oldest and most widely supported for loop in JS. You can always rely on it. It also allows you to be more intentional about which is the starting/ending element and which direction the iteration should go.
+
+However, the dev experience is not perfect because its syntax is not straightforward. Feel free to use for...in (when dealing with objects) or for...of (when dealing with arrays, strings, sets, NodeLists, and maps) instead where appropriate.
+
+
+forEach loop:The forEach() method calls a function for each element in an array.
+
+The forEach() method is not executed for empty elements.
+array.forEach(function(currentValue, index, arr), thisValue)
+ The forEach() method is also used to loop through arrays, but it uses a function differently than the classic “for loop”. 
+It passes a callback function for each element of an array together with the below parameters:
+
+reduce:
+The reduce() method executes a reducer function for array element.
+
+The reduce() method returns a single value: the function's accumulated result.
+
+The reduce() method does not execute the function for empty array elements.
+
+The reduce() method does not change the original array.
+
+array.reduce(function(total, currentValue, currentIndex, arr), initialValue)
+
+
+
+reduce() method in JavaScript is used to reduce the array to a single value and executes a provided function for each value of the array (from left-to-right) and the return value of the function is stored in an accumulator.
+
+
+The accumulator is the value that we end with and the reducer is what action we will perform in order to get to one value. You must remember that a reducer will only return one value and one value only hence the name reduce.
+
+
+The benefit of using reduce comes into play when you want to map and filter together and you have a lot of data to go over.
+
+
+
+
+map() creates a new array from calling a function for every array element.
+
+map() calls a function once for each element in an array.
+
+map() does not execute the function for empty elements.
+
+map() does not change the original array.

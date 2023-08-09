@@ -1,0 +1,76 @@
+project name
+
+FP Data management strategy
+
+ 
+
+project description
+
+The service is requested as part of the project FP Data management strategy. The project has the purpose to build data structure in SAP Cloud platform and validate the data against SAP Horizon and P03 system.
+
+Background of the engagement of an external consultant is that he has appropriate and required skills and capabilities that is not available internally, namely:
+
+SAP Cloud Platform
+SAP Mobility 
+UX und Mobile Strategie 
+SAP Fiori / UI5 Entwicklung 
+JAVA Entwicklung (SCP) 
+XML 
+Web Services 
+SAP UI Entwicklungstools (CICD)
+ 
+
+In addition the external consultant will provide services that are clearly distinguishable from the services internal employees are providing.
+
+The project is working in an agile methodology. Sprint duration is two weeks so the Sprint meetings are conducted every next week.  During this Sprint period daily stand-ups will be conducted to affiliate the compatibility of the complex service that will be delivered.
+
+Any of the meetings and exchanges described above will take place exclusively in the presence of a Client’s single point of contact appointed by Henkel, who is coordinating the project on the Client's internal side. The coordination of the above described meetings, in which the external consultant is involved, will be organized and carried out by the contractor and will be agreed upon with Henkel.
+
+The project is running on Azure DevOps to which the contractor will get access to in advance.
+
+ 
+
+task description 
+ 
+
+The scope of services includes the following tasks, which are independently performed by the external contractor:
+
+Setup and maintain Azure Repo
+Evaluate structure of current PURCAP 1.0 to prepare migration to the new structure;
+Define new structure / composition for PURCAP 2.0 in the documents of the project sharepoint to which the contractor gets access to in advance;
+Prepare PURCAP 2.0 for integration with Azure Pipelines;
+Define & code scripts for building the existing and new microservices in the repo;
+Setup and Maintain Azure Pipelines 
+Create Build Jobs for all Applications in PURCAP 2.0;
+All UIs, all NodeJS Services all Schema deployments
+Independently optimize performance and arrange dependency of builds as discussed in the sprint meetings;
+Establish, review and approve flow for developers (only code, not requirements) to create combinations of data sets;
+Publish development artifacts as defined in the sprint meetings;
+Execute Unit Tests and document results in the sharepoint which is subject to approval by Henkel;
+Using semantic versioning for all components used;
+Independently optimize build time to speed up development;
+Build deployment pipeline
+Integrate with Business Technology Platform (BTP);
+Integrate with Services used on BTP (currently planned: Microsoft SQL database, HANA, Job Scheduler, Document Management, XSUAA);
+Enable blue-green deployment and independently decide how to deploy the migration;
+Execute database migrations outside of PURCAP 1.0 but within the BTP;
+Setup Monitoring 
+Track Application Status of all currently running applications on BTP to check for SQL errors;
+Enable Application Logging and Insights as defined in the sprint meetings;
+Coordinate technical go-live and subsequent releases
+For PUCAP 2.0, writing down use cases to be kept in DevOps (subject to approval by Henkel);
+Releasing fixes for bugs or Change Requests raised during the sprint, also to be documented in DevOps which is subject to approval by Henkel;
+Consult the project team about architecture decisions impacting Azure DevOps
+There are multiple ways to connect systems, team needs to be advised which is the best way for each specific system.
+ 
+
+The performance of the contractor has the goal to migrate the current systems to a stable Azure environment.
+
+ 
+
+Timelines
+
+CW 5 - 8: Project Setup
+CW 8 - 14: Azure Project Setup
+CW 8 – 51: Requirements Engineering
+CW 52: Project End

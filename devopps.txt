@@ -1,0 +1,27 @@
+curl -i -H "Accept:application/json" -H "Content-Type:application/json" -H "Authorization: Bearer f7bc07b0642fedb55a64d1b11
+
+8e122d9cc58601309bbcfb9c0f366671d713a5a" -XGET "https://gorest.co.in/public/v2/users"
+
+Lab URL - https://gsi.learnondemand.net
+
+Login ---> Microsoft Account
+
+Login ID & Password --->  Personal Microsoft email account
+
+Training Key - 29E3814D2D644868
+
+For the access to all the resources -
+
+Login to LET (Learning Enhancement Tool) for all relevant information
+
+https://www.koenig-solutions.com/account/login
+
+Login ID: <your registered email>.
+examtopics.com
+
+Password:   132862 TaskInstance
+w3school
+
+
+
+

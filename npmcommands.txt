@@ -1,0 +1,80 @@
+
+nest new project name
+
+nest g controller products//
+code .
+npm install -g @nestjs/cli//insall cli
+
+npm install --save @nestjs/typeorm typeorm pg     //install typorm  with poatfresql
+npm install --save @nestjs/swagger
+npm install @nestjs/swagger-ui-express  ///pending
+npm i swagger-ui-express 
+ npm i -D @compodoc/compodoc
+"doc": "npx compodoc -p tsconfig.json -n --disableSourceCode"
+
+npm i --save class-validator class-transformer
+npm install bcryptjs
+npm i -D @types/bcrypt
+npm install @nestjs/jwt @nestjs/passport passport passport-jwt
+npm install -D @types/cache-manager
+
+npm i --save @nestjs/event-emitter
+$ npm install --save @nestjs/schedule
+$ npm install --save-dev @types/cron
+
+npm install cache-manager-redis-store
+
+npm run doc
+npm run test --watchAll
+npm run test:cov
+
+
+
+
+TypeOrmModule.forRootAsync({
+
+      imports: [ConfigModule],
+
+      inject: [ConfigService],
+
+      useFactory: (configService: ConfigService)=>({
+
+        database: 'postgres',
+
+        host: configService.get('DATABASE_HOST'),
+
+        port: configService.get('DATABASE_PORT'),
+
+        username: configService.get('DATABASE_USERNAME'),
+
+        password: configService.get('DATABASE_PASS'),
+
+        schema: configService.get('DATABASE_SCHEMA'),
+
+        logger: configService.get('DATABASE_LOGGER'),
+
+        logging: configService.get('DATABASE_LOGGING')
+
+      })
+
+    }),
+
+
+///DATABASE_HOST='localhost'
+
+DATABASE_NAME='postgres'
+
+DATABASE_PORT=5432
+
+DATABASE_USERNAME=''
+
+DATABASE_PASS=''
+
+DATABASE_SCHEMA='public'
+
+DATABASE_LOGGER='file'
+
+DATABASE_LOGGING='all'
+
+
+//npm i --save @nestjs/config

@@ -1,0 +1,10 @@
+Hi Chitrakshi,
+I have sent one request access ,Rohit Bandaru shared one video link to see azure board learning
+
+Devopps is basically irrative and repetive process when you devlope a software. devopps closess the gap btween softarwere and it operation
+
+Azure devopps is basically a toolbox for product devlopment,project plannng,colabration and automation in order to accelerate your teams on its devlopment journey
+in combination with azure plateform azure devopps provides best in class userb experience and deep intefration for your (cloud) projects
+ 
+
+Apache Kafka is an open-source distributed streaming system used for stream processing, real-time data pipelines, and data integration at scale .

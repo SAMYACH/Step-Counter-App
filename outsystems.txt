@@ -1,0 +1,51 @@
+CVAPIGWDEV
+
+outsystem platform house keeping
+
+SA A & AI
+house keeping
+
+BMAS GIT SA Automation & AI
+testpublish module(application)
+
+A Block is a reusable user interface
+component that can hold widgets, 
+patterns and other blocks
+
+
+
+What is low-code? Low-code is a way to design and develop software fast and with minimal hand-coding.
+It enables skilled people to deliver value more quickly and more reliably.
+
+An Entity is an element that allows us
+to persist and access information
+that is needed in our applications
+
+
+Static Entities are a special type of Entity
+that creates a predefined list of values
+that can be used in our applications
+
+ Only 1 Entity Action
+○ The Get Entity Action
+
+Id
+○ Label
+○ Order
+○ Is_Active
+
+
+
+An Aggregate is a visual element that visually 
+defines a query to fetch data from entities 
+with sources, filters and sorting
+
+
+A Site Property is a server-side 
+configuration variable that allows 
+to store application-wide information
+
+componet
+genric
+two way binding
+web api question (action

@@ -1,0 +1,1959 @@
+SHA256:WgUUbS9iVHFl/ExKyqwAbQE5WDi4Eif5u7OWW2umsUA
+day 1=------------------------------------------
+schema,//a schema is a list of logical structures of data.
+postgrsql commends
+how to connect 
+postgress padmin
+create DML.,DQL,ddl
+import and export in schema
+not equal to null,distinct,alter,drop,rename
+select
+update
+orferby
+where
+like
+
+
+alter database demodb owner/RENAME to test=--newdatabasenamr-----schemaname//IF EANT TO REMANE TO CLOSE FROM ANOTHER
+DROP DATABASEdemodb;
+select version();//to select version
+\l //list all the database --list
+create schema demo;//schema is collection of table 
+
+\c databasename//to connect with database
+\dt to see schema  table
+show search_path;//search diffrent schema names $'user',public //output
+show search_path;//  if show error delete ; onedigit then type again
+SET search_path to dev_schema;/set will disply/to switch to diffrent schema then type again show search path
+drop schema demo_schema;
+create schema demo_schema_one;
+\dt*.*//see aLL SCHHEMA
+\dt PUBLIC.*/// list of relation schema and table names
+
+CREATE DATABASE demodb;//to create database
+
+
+ \c demodb;//switch database
+\dn list of schema
+CREATE table Employee (///for diffrent schema CREATE table userschema.Employee
+First_name text NOT NULL,
+Last_Name text NOT NULL,
+Sap int NULL,
+Email text NOT NULL,
+JoiningDate date NULL,
+Salary int NULL
+);
+
+
+SELECT SCHEMA_NAME
+FROM INFORMATION_SCHEMA.SCHEMATA
+select nspname from pg_catalog.pg_namespace;
+
+
+select* from Employee;
+select first name,Email from Employee;
+
+agar suruwat me he postgress default ki jagah anotherdatabase se connect krna hai to localhost bad database me database nam mention ker sdo then connect krao
+
+\dn//number of schema
+
+demodb=# select*from public.employee;
+
+alter table people rename to people_info;//for rename table
+alter table people_info add column salary int;
+alter table people_info drop column dateofdeath;
+alter table people_info rename column salary to sal;
+
+
+fetch,limit, used to use pagination,offset,distinct//how mancy row it wil disply use fetch
+
+
+Day 2------------------------
+connect demo_session;
+create databse demo_sesson;
+create schema demao_session_schema;
+show search_path;//ye do line
+set search_path='demo_session_schema'///all for swetch to diffrent databse schema
+
+create table demo_session_schema.categories(
+category_id serial,
+category_name varchar(20));
+select category_id,category_nme from demo_session_schema.categories;//in shoping cart application
+
+category-cloth,homedeco,electronic,cosmatics,etc.....
+product-sareee,shirt
+insert into categories(category_name) values('clothing')
+insert into categories(category_name) values('electronic')
+insert into categories(category_name) values('cosmetic')
+insert into categories(category_name) values('hoome decor')
+UPDATE table_name
+SET column1 = value1,
+    column2 = value2,
+    ...
+WHERE condition;
+
+
+//to remove duplication
+create table demo_session_schema.categories(
+category_id serial,
+category_name varchar(20)) unique;
+
+alter table demo_session_schema.categories
+add constraints category_name_unique unique(category_name);
+
+agar duplication ho to use unique name and primary key in id
+
+
+//truncate table data only not structure
+
+//empty values and be eleminated by  defult values or minium length of character use check constraints
+
+insert into products(product_name,price,description,quantity,expiry_date) values('mobile',2000,'this is product info',1,'2022-08-25');
+
+create table products(
+    product_id serial primary key,
+    product_name varchar(20) not null check(product_name <> '' and LENGTH(product_name) > 3),
+    price int not null check(price <> 0),
+    description text,
+    quantity int not null check(quantity <> 0),
+    exipry_date date check(exipry_date > current_date)
+);
+//when want to satrt with perticular postion then we use sequence
+squence,checks,constraints all,
+inner join//display maching values from both tables
+
+full join//display all data from left and right join
+
+cross join// will match each row of table with every row of second table
+left:display all value from left tab;le and matching vaues from right
+,right:display all value from right tab;le and matching vaues from left
+
+
+Day 3--------------
+set search_path="userschema";
+show search_path;
+create table employee(
+id serial primary key,
+first_name varchar(20),
+last_name varchar(20),
+manager_id int,
+foreign key(manager_id) references employee(id)
+);
+
+naveenee-> vinoda
+radha->naveenee
+yogini_<>naveenee
+chandra-> yogini,
+insert into employee(first_name,last_name,manager id) values('deepak','D',null);
+insert into employee(first_name,last_name,manager id) values('rani','t',4);
+
+select e.id as employee_id,e1.first_name+''+e1.lastname as employee_name,e2.first_name
+
+sub query//qreury is part of query its is nested or inner query
+
+view:view is a phusdo table .i will display data from multiple table its like tempery table.
+trigger:A trigger is a special type of stored procedure that automatically runs when an event occurs in the database
+ server. DML triggers run when a user tries to modify data through a data manipulation language (DML) event.
+ DML events are INSERT, UPDATE, or DELETE statements on a table or view.
+self join:A self join allows you to join a table to itself.
+ It helps query hierarchical data or compare rows within the same table.
+
+trigger is special kind of store procedure which is we avoke automatically when we perform DML operations like insert,delete,update.
+
+
+create or replace trigger product_insert_trigger after insert on products
+for each row
+execute function product_audit_log_fun();
+
+
+
+create or replace trigger product_delete_trigger after delete on products
+for each row
+execute function product_audit_log_fun();
+
+
+rollabck :to remove data we use roleback also its has save point means we data till savepoint will not deleted 
+commit: it we perform  commitment then data will not deleted after commit perform
+BEGIN TRANSACTION − To start a transaction.
+
+COMMIT − To save the changes, alternatively you can use END TRANSACTION command.
+
+ROLLBACK − To rollback the changes.
+
+select * from employee;
+
+
+
+begin;
+insert into employee(first_name, last_name, manager_id) values('one', 'D', 1);
+insert into employee(first_name, last_name, manager_id) values('two', 'S', 2);
+savepoint s1;
+
+
+
+insert into employee(first_name, last_name, manager_id) values('three', 'H', 1);
+insert into employee(first_name, last_name, manager_id) values('fore', 'R', 4);
+savepoint s2;
+
+
+
+rollback to savepoint s1;
+end;
+
+
+
+
+commit;
+
+
+grant:admin can give perfmisiion to entery any database or or switch by another user in postgresql
+ and revoke
+Acid property
+
+CREATE [ OR REPLACE ] [ TEMP | TEMPORARY ] VIEW name [ ( column_name [, ...] ) ]
+    [ WITH ( view_option_name [= view_option_value] [, ... ] ) ]
+    AS query
+or
+CREATE  VIEW view_name AS
+SELECT produts_name,column2.....
+FROM products
+WHERE condition;
+view are psudo table
+A view can contain all rows of a table or selected rows from one or more tables.
+
+create or replace trigger product_delete_trigger after delete on products
+for each row
+execute function product_audit_log_fun();
+
+Data control language:grant remove
+
+Transaction Control Language
+data diffination language
+data manupulation language
+function:it is  database objects that contains a set of SQL statements to perform a specific task. 
+
+
+
+
+
+
+trigger syntax
+select* from userschema.Department d
+inner join userschema.employee e
+on d.DeptId=e.Dept_Id
+
+selef jaoin syntax:
+select e.name as employee_name ,e2.manager as managername from employee e1, left join employe e2
+where e2.id=e1.manager_id
+
+create or replace trigger nametrigger after insert on wmployee for each row execute function name 
+create or replace trigger product_insert_trigger after insert on products
+for each row
+execute function product_audit_log_fun();
+
+create or Replace trigger triggername before insert on table name for each row from employrr  then call function();
+
+select count(product_name) from product;
+select avg(price) from products;
+select sum(quantity) from products;
+select min(quantity) from products;
+select max(quantity) from products;
+
+tcl rollback commit
+* 
+
+
+///function 
+
+
+create function funname()
+returns int as
+$$
+declare
+product_count int;
+begin
+select count(product_name) into product_count from products;
+return product_count;
+end;
+$$
+language plpgsql;
+
+
+some kind of caluclation i wanted to use agin or some kind of filter it wanted to use then use funtion
+day4------------------------------------------------
+
+
+\dn to see schema
+
+alter table products
+add constraint category_id_fk foreign key(category_id) references categories(category_id) ON DELETE SET NULL;
+
+
+alter table products
+add constraint category_id_fk foreign key(category_id) references categories(category_id) ON DELETE SET NULL;
+
+
+alter table products
+add constraint category_id_fk foreign key(category_id) references categories(category_id) ON DELETE CASCADE;
+
+
+alter table products
+add constraint category_id_fk foreign key(category_id) references categories(category_id) ON DELETE RESTRICT;
+
+
+alter table products
+add constraint category_id_fk foreign key(category_id) references categories(category_id) ON DELETE SET DEFAULT
+
+alter table products
+add constraint category_id_fk foreign key(category_id) references categories(category_id) ON DELETE NO ACTION;
+
+alter table products
+add constraint category_id_fk foreign key(category_id) references categories(category_id) ON DELETE NO ACTION;
+
+grant connect on database demo_session to cnc;
+
+grant usage on schema demo_session_schema to cnc;
+
+
+grant select on all tables in schema demo_session_schema to cnc;
+set search_path= 'demo_session_schema';
+grant select on table demo_session_schema.employee to cnc;
+
+grant select,insert,delete,update on table demo_session_schema.employee to cnc;
+
+grant all on sequence on categories_category_id_seq to cnc;
+
+Revoke all on seuence Product_audit_log_id_seq from cnc;
+Revoke all on seuence Product_audit_log_id_seq from cnc;
+Revoke select,insert,delete,update on table employee from cnc;
+
+
+Containts:
+Postgresql supports the following actions
+SET NULL
+SET DEFAULT
+RESTRICT
+NO ACTION
+CASCADE:As we have only deleted the entry from the parent table, it will automatically reflect the changes in the child tables also.
+create funtion functionname
+return int as 
+declare 
+pricevaly int;
+begin
+select count(*) fron product 
+whrere values is 
+end
+$$
+languagye postgresql
+[Yesterday 6:37 PM] Radha Nanjundaswamy
+NodeJS is an asynchronous event-driven JavaScript runtime environment designed to build scalable network applications
+
+[Yesterday 6:37 PM] Radha Nanjundaswamy
+Asynchronous here refers to all those functions in JavaScript that are processed in the background without blocking any other request.
+
+
+
+Day 5-----------------------------------
+node js introduction:
+node -v//version check
+ cd path > code //of visual studio code
+node app.js
+
+globals,event,http:require
+Post method is mainly used to send data to a Specified server
+POST is used to send data to a server to create/update a resource.
+
+package .json question
+asncronous,non blocking,
+
+Node.js is an open source, cross-platform runtime environment for developing server-side and networking applications
+
+day 6------------------------
+how can run os
+nps run start//json pe jake start mention kro after script:node app.js
+var os=require('os');
+var path=require('path');
+var fs=require('fs');
+console.log("version",os.version)
+getversion();//os module
+console.log(path.basename('./demo/fullname.js'))
+console.log(path.extname('package.json'))//app.js
+
+
+fs.readfile('text.txt','utf-8',(err,data)=>{
+console.log(data);
+})
+
+make test.txt
+hello all good morning
+create file write some content and close the file;//assignment
+http.create server
+file event happend "on" use
+var http=require('http');
+server =http.create server((req,res)=>{if(re.url=='/'){
+res.write(;hello good morning')
+res.end();
+}else if (res.url=='/producrs'){
+let products=[{id:1,name:'laptop'},id:2,name:'ipjone'}]
+
+res.write(json.stringify(prudcts));
+res.end();}})
+
+servier.listen(8080);
+console.log(server is running);
+
+
+
+//
+fs.readFile('package.json12312341', 'utf-8', (err, data) => {
+
+
+
+    if (err) {        
+
+        eventEmiterObj.emit('file-read-error', err)
+
+    }
+
+    else {        
+
+        eventEmiterObj.emit('file-read-success', data)
+
+    }
+
+})
+
+
+
+eventEmiterObj.on('file-read-error', (err)=> {
+
+    console.log({message: err.message});
+
+})
+
+eventEmiterObj.on('file-read-success', (data)=> {
+
+    console.log("file read success")
+
+    console.log(data)
+
+})
+
+node inspect api.js
+
+give hostname 8080 : hello good morning
+
+diffrent type of modules:http,filesystem,build in modules:path ,os ,events,http, custom module,npm package,package lock json,package
+debuuger,error,
+
+
+
+
+intdoductiion of node.js features,event oop callstack will come
+
+,versiong,symbols,arg conditins ,beetween the range
+how we have install module nop install module name
+npm repo,pulic resposotory
+if you not mention -- dev it will go on production dependency 
+
+
+day 7/...................................
+nest js CLI
+tyepscript complier
+
+
+
+
+nest--help
+nest new shop-app,,product name
+
+mutilple pacage mangaer npm
+
+code .//to open visual studio code
+nest start
+it crete application instance of  nestapplication
+
+second half
+nup run start
+nest.js 
+controller,modules,provider/services/middleware
+module
+solid principles
+design patterns
+category-ad ,delete,search,list
+shoping cart application
+nest generate module products//profuct is modyke name
+feature module 
+nest g controller products//
+
+npm install -g @nestjs/cli//insall cli
+cli commands test
+
+nest js.:it is framwork for building efficent scable node js application
+support oops,fp
+postgresql,sql
+mvc 
+features:open source ,typscript,cli,unit testing,
+npm install -g @nestjs/cli  //install
+
+
+nest new projectname
+nest --help 
+npm run start:dev
+
+nest g controller products//genrate controller 
+nest generate module products//profuct is modyke name
+
+nest start//to start in backgraond
+main .ts//app will start from main .ts
+appmodule.ts is entry point
+
+nestjs: building block
+
+controller:A controller porpose is to recive specfiy request for the application.by use of routing controller recives which request
+incoming request and returning response to client
+
+
+modules:modules are the basic buildomg block of each nest.js application and used to group related features 
+each application has atleast one modiule called root module
+singleton 
+@Module({
+  imports: [],
+  controllers: [],
+  providers: [],
+})
+import{module} from '/@nestjs/common'
+
+services/Providers
+middleware
+
+The microservice architecture enables the rapid, frequent and reliable delivery of large, complex applications
+clliection od service:
+Highly maintainable and testable
+Loosely coupled
+Independently deployable
+Organized around business capabilities
+Owned by a small team
+
+
+Module property:
+Provders:that wil be installed by the best ijcetor
+controllr:set of controller in this modules which have to be instansiated
+import
+export
+
+feature module:feature module simply organizes code to relevvent for specific festure,kee[ping code stablised
+manage complaxecity
+shared module
+re exporting
+
+global module
+@Global()
+hanler is methid decorated with decrator
+
+DTO dat transfer onj:how dats will be sent over the network
+
+how cant nest provides decorates for all of the standard http method @ get,post,del
+
+the provider that will be instantiated by the nest injector and that may be shared al leasr accorss this module
+
+day 7--------------------25/08
+
+Providers:Providers are a fundamental concept in Nest. Many of the basic Nest classes may be treated as a provider – services, repositories, factories, helpers,
+ and so on. The main idea of a provider is that it can be injected as a dependency ,object can create realtionship to eact other.
+
+Services :to perform business liogic we use services
+  
+we can create providers by two ways
+
+class based provider (services):
+@Injectable()
+export class CatagoriesService {
+    private categoriesDTO=[]
+
+
+
+dependency injection:Di is a desin pattern in which a class request for its dependency from an external source
+ rateher than createing them.
+@Controller('categories')
+export class CategoriesController{
+    constructor (private categoriesServices:CatagoriesService){
+
+    }
+    @Get()
+   async listCategories():Promise<CategoryDTO[]>{
+        return await this.categoriesServices.fetchAllCategories()
+    }
+
+construtor based dependancy injection//prefer to use
+optional providers:
+import { Injectable, Optional, Inject } from '@nestjs/common';
+
+@Injectable()
+export class HttpService<T> {
+  constructor(@Optional() @Inject('HTTP_OPTIONS') private httpClient: T) {}
+}
+
+Property based injection
+import { Injectable, Inject } from '@nestjs/common';
+
+@Injectable()
+export class HttpService<T> {
+  @Inject('HTTP_OPTIONS')
+  private readonly httpClient: T;
+}
+
+Provider registration:
+@Module({
+ 
+providers:[CatagoriesService],}]
+
+statndard provider{[]}//use array
+providers: [
+  {
+    provide: CatsService,
+    useClass: CatsService,
+  },
+];
+
+value provider:useValue
+ providers: [
+    {
+      provide: CatsService,
+      useValue: mockCatsService,
+    },
+  ],
+
+non class nbased:
+tokens:we can use string values
+factory:we can some data from other service
+  provide: 'CONNECTION',
+  useFactory: (optionsProvider: OptionsProvider, optionalProvider?: string) => {
+    const options = optionsProvider.get();
+    return new DatabaseConnection(options);
+  },
+useExisting
+
+@Injectable()
+class LoggerService {
+  /* implementation details */
+}
+
+const loggerAliasProvider = {
+  provide: 'AliasedLoggerService',
+  useExisting: LoggerService,
+};
+@Module({
+  providers: [LoggerService, loggerAliasProvider],
+})
+export class AppModule {}
+
+
+Asynchronous provider 
+{
+  provide: 'ASYNC_CONNECTION',
+  useFactory: async () => {
+    const connection = await createConnection(options);
+    return connection;
+  },
+}
+
+
+TypeORM:object realtinal mapper library running in node.js written in TS
+feature:entity .colum
+support datamapper and activerecords
+Features of TypeORM:
+TypeORM comes with the following features −
+
+Automatically create database table schemes based on your models.
+Easily insert, update and delete object in the database.
+Create mapping (one-to-one, one-to-many and many-to-many) between tables.
+Provides simple CLI commands.
+
+Benefits of TypeORM
+TypeORM is easy to use ORM framework with simple coding. It has the following benefits −
+
+High quality and loosely-coupled applications.
+Scalable applications.
+Easily integrate with other modules.
+Perfectly fits any architecture from small to enterprise apps.
+
+npm install --save @nestjs/typeorm typeorm pg//install typorm  with poatfresql
+ormconfig.env
+entity:An entity is a collection of fields and associated database operations. It is used to map database table and its fields with the entities and its attributes. 
+column
+PrimaryGeneratedColumn() decorator class is used to represent that the id column is the primary key column of the Student entity.
+Column() decorator class is used to represent other columns such as Name and Age of the Student entity.
+
+
+
+
+
+nest g service categories
+nest g service categories
+
+type of services used in nestjs
+categories.service.ts //file create in ctategory
+
+@injectable
+export Class Categoiesservices
+go to category module  and proves name in provider
+  async updateCategory(categoryDTO:CategoryDTO,id:Number){
+        return await this.categoryRepo.map((item)=>item.id ==id?{...item,categoryName: 'toys'}:item);
+      
+    }
+    async deleteCategory(id:Number){
+        return await this.categoryRepo.splice(1, 1);
+
+we have to inject t our category controller
+dependency injection:sab screenshot,dependency ke bare me
+prefer to go construtor based dI
+constructor(@InjectRepository(Category) private categoryRepo: Repository<Category>){}
+@inject decorator
+
+inject in category construtor before go- service(task to dorefer video)11:15
+Provider registration
+201 status code for sucess
+video11:38
+standard provider
+values proider
+non based baaed probvider
+takens:we can use string value as the token
+factory:usefl when we have
+orm object realtion realtion
+Type orm: libraray for TS and JS
+benifits of Type orm:screenshot
+coonection:to inract with database,we need a connection object to the database
+craete new connection
+
+npm install --save @nestjs/typeorm typeorm pg//install typorm  with poatfresql
+1:13 create orm file
+shop app create ormconfig.env
+in this file do configuration
+.env orm cobfig.env
+property for env varables
+config kro video 1:21
+
+create catefory.entity.ts in category //naminf convention lower camek case id you have on word use samll all, if ypu habe like catefgorynme then use first letter small and second word first cap letter in js/ts
+upper camel vcase
+UpprCamelCase//class,eventEmitter,Categpory controller
+yml file
+1:33 video to add column in entity
+open pdadmin
+after lunch see video
+how to create inject repostory
+watch video 2:40 4:00 till//for excercise not for concept
+
+listproductsearch by product name
+price,delete add update quantity
+
+
+create table products(
+    product_id serial primary key,
+    product_name varchar(20) not null check(product_name <> '' and LENGTH(product_name) > 3),
+    price int not null check(price <> 0),
+    description text,
+    quantity int not null check(quantity <> 0),
+    exipry_date date check(exipry_date > current_date)
+
+
+add error message//excercing for category cse
+ exception handling and 
+validation for category product
+ 
+
+
+day 26/08-------------------------------
+exception handling
+validation
+relation
+auth
+swagger:Swagger allows you to describe the structure of your APIs so that machines can read them. 
+documentation
+unit test
+  "productName":"mobile ery",
+    "addedBy":"h"
+
+
+nest js support openapi
+install swager:
+npm install --save @nestjs/swagger
+npm install @nestjs/swagger-ui-express
+
+how to openAPI swager
+go=>main.ts
+import swagger module documentbuilder,swagermodule:11.20
+  const config= new DocumentBuilder()//lin7 dont inter semiclon
+  .setTitle('Shop_App')
+  .setDescription('shoping cart application')
+  .setContact('diya','','abc@hcl.com')
+  .setVersion('v1.0.0')
+  .build();
+  const document= SwaggerModule.createDocument(app,config);
+  SwaggerModule.setup('apis',app,document)//second app is application instance
+
+//documnet:documentation onkject you have created
+
+controller me jao wha apitag
+then go
+dto :apiproperty
+currently working in controller api decrators swagger
+swagger deco:
+@ApiTags
+
+•@ApiHeader()
+
+•@ApiProperty()
+
+•@ApiHeader()
+
+•@ApiOkResponse()
+
+•@ApiCreatedResponse()
+
+•@ApiAcceptedResponse()
+
+•@ApiNoContentResponse()
+
+•@ApiMovedPermanentlyResponse()
+
+•@ApiBadRequestResponse()
+
+•@ApiUnauthorizedResponse()
+
+•@ApiNotFoundResponse()
+
+•@ApiForbiddenResponse()
+
+
+•@ApiMethodNotAllowedResponse()
+
+•@ApiNotAcceptableResponse()
+
+•@ApiRequestTimeoutResponse()
+
+•@ApiConflictResponse()
+
+•@ApiTooManyRequestsResponse()
+
+•@ApiGoneResponse()
+
+•@ApiPayloadTooLargeResponse()
+
+•@ApiUnsupportedMediaTypeResponse()
+
+•@ApiUnprocessableEntityResponse()
+
+•@ApiInternalServerErrorResponse()
+
+•@ApiNotImplementedResponse()
+
+•@ApiBadGatewayResponse()
+
+•@ApiServiceUnavailableResponse()
+
+•@ApiGatewayTimeoutResponse()
+
+•@ApiDefaultResponse()
+
+------learn about what is meaning of status code
+documentation:its is way we can drirte code to unerstanable for every one,if you do doc if devlopers
+ see codes then they can understand and so we need to mention comment to your code
+what ciompodoc do:it allow you to generate documentation for your application
+
+ npm i -D @compodoc/compodoc
+go to package json and first
+{
+"doc": "npx compodoc -p tsconfig.json -n --disableSourceCode"}
+go to option 
+and put disable source code
+disableSourceCode	Do not add source code tab and links to source code
+--disableDomTree	Do not add dom tree tab
+--disableTemplateTab	Do not add template tab
+--disableStyleTab	Do not add style tab
+--disableGraph	Disable rendering of the dependency graph
+--disableCoverage	Do not add the documentation coverage report
+--disablePrivate	Do not show private in generated documentation
+--disableProtected
+
+javadocs use to provide comment
+/ shift **  to put comments for documentation
+comtroller ke liye ker diya hai docmentation baki ke liye ker dena
+exception its handle all your exception
+nestjs have build in exceptions
+
+throwing standard exception:
+By default, the JSON response body contains two properties:
+
+statusCode: defaults to the HTTP status code provided in the status argument
+message: a short description of the HTTP error based on the status
+
+To override just the message portion of the JSON response body: supply a string in the response argument. To override the entire JSON response body, pass an object in the response argument. Nest will serialize the object and return it as the JSON response body.
+
+custom exception: 
+If you do need to create customized exceptions, it's good practice to create your own exceptions hierarchy, where your custom exceptions inherit from the base HttpException class. With this approach, Nest will recognize your exceptions, and automatically take care of the error responses. Let's implement such a custom exception:
+its good practice custome exception shold inherit from standard httpexception class class.
+forbidden.exception.tsJS
+
+export class ForbiddenException extends HttpException {
+  constructor() {
+    super('Forbidden', HttpStatus.FORBIDDEN);
+  }
+from documentation product is pending exception aur next  controller and services
+
+
+some in buildin exception are :not found
+
+Nest comes with a built-in exceptions layer which is responsible for processing all unhandled exceptions across an application. When an exception is not handled by your application code, it is caught by this layer, which then automatically sends an appropriate user-friendly response.
+
+
+Out of the box, this action is performed by a built-in global exception filter, which handles exceptions of type HttpException (and subclasses of it). When an exception is unrecognized (is neither HttpException nor a class that inherits from HttpException), the built-in exception filter generates the following default JSON response:
+
+
+{
+  "statusCode": 500,
+  "message": "Internal server error"
+}
+HINT
+The global exception filter partially supports the http-errors library. Basically, any thrown exception containing the statusCode and message property will be properly populated and send back as a response (instead of the default InternalServerErrorException for unrecognized exceptions).
+Throwing standard exceptions#
+Nest provides a built-in HttpException class, exposed from the @nestjs/common package. For typical HTTP REST/GraphQL API based applications, it's best practice to send standard HTTP response objects when certain error conditions occur.
+
+
+
+Exception filters#
+While the base (built-in) exception filter can automatically handle many cases for you, you may want full 
+control over the exceptions layer. For example, you may want to add logging or use a different JSON schema based 
+on some dynamic factors. Exception filters are designed for exactly this purpose. They let you control the exact flow of 
+control and the content of the response sent back to the client.
+
+
+
+Exception filter can bind to method,controller ,global
+  app.useGlobalFilters(new HttpExceptionFilter())//global
+ @UseFilters(new HttpExceptionFilter())//controller
+
+to valuidate yoour inputs pipes comes in picture
+
+a pipe is a class annotated with the injectable() decorator pipe should implement the pipe transform nterface
+two type:transformation
+validation
+
+
+
+Compodoc - The missing documentation tool for your Angular application
+
+[Yesterday 12:19 PM] Radha Nanjundaswamy
+
+https://compodoc.app/guides/usage.html
+   //throw new HttpException('No data found', HttpStatus.NOT_FOUND)
+
+            throw new HttpException({
+
+                status: HttpStatus.NOT_FOUND,
+
+                error: 'No data found'
+
+            }, HttpStatus.NOT_FOUND)
+
+npm i --save class-validator class-transformer
+buildin pipes
+custom pipes
+ whitelisting property:unwanted property can we removed
+forbidnonwhitelistesd:true
+
+day 30/08-----------------------------------------------------------------------------
+
+31 holiday------------
+1/09--------------------------------=----------------
+eager − Source entity object loads the target entity objects as well.
+cascade − Target entity object gets inserted or updated while the source entity object is inserted or updated.
+onDelete − Target entity objects get deleted as well while the source entity object is deleted.
+primary − Used to specify that the relation column is primary key or not.
+nullable − Used to specify that the relation column is nullable or not.
+
+A PostgreSQL transaction is atomic, consistent, isolated, and durable. These properties are often referred to as ACID:
+
+Atomicity guarantees that the transaction completes in an all-or-nothing manner.
+Consistency ensures the change to data written to the database must be valid and follow predefined rules.
+Isolation determines how transaction integrity is visible to other transactions.
+Durability makes sure that transactions that have been committed will be stored in the database permanently.
+
+Properties of Transactions
+Transactions have the following four standard properties, usually referred to by the acronym ACID −
+
+Atomicity − Ensures that all operations within the work unit are completed successfully; otherwise, the transaction is aborted at the point of failure and previous operations are rolled back to their former state.
+
+Consistency − Ensures that the database properly changes states upon a successfully committed transaction.
+
+Isolation − Enables transactions to operate independently of and transparent to each other.
+
+Durability − Ensures that the result or effect of a committed transaction persists in case of a system failure.
+
+{
+    "firstName":"Saumya",
+     "lastName":"verma",
+     "emailId":"sac@gmail.com",
+      "profile": {
+          "imageName": "image Description",
+           "imageContent": 133
+          }
+    
+}
+
+day-------------------
+1/09 task
+async getCategoryWithProducts(){
+let res awit this.categoryRepo.find({realtion:[]});
+if (res.length>0){
+return res;
+}
+else{
+throw new Not foundException();}
+
+
+let productRes=awit this.productRepo.save(categoryDto.products)
+let res=await this.categoryrepo.save({...categoryDTO,products:productres
+ qyery builder is used to perferm complex query
+
+http://lp-5cd84715hz:3000/product/all/category//get all product with category
+/productwithcategory  ///post method in producat
+
+all/products// for category
+/products// post in category
+"productName":"ffj",
+"description":"gh"
+
+
+"productName":"test3",
+    "addedBy":"hfh",
+    "description":"hudug",
+    "price":7882,
+    "quanity":6
+
+
+
+
+
+
+[
+    {
+    "productName":"test3",
+    "addedBy":"hfh",
+    "description":"hudug",
+    "price":7882,
+    "quanity":6
+},
+    {
+    "productName":"test1",
+    "addedBy":"hhdd",
+    "description":"huugdd",
+    "price":7889,
+    "quanity":8
+},
+{
+    "productName":"test",
+    "addedBy":"hh",
+    "description":"huug",
+    "price":788,
+    "quanity":7
+}
+
+]
+"product":[
+    {
+"id":46,
+    "productName":"firstafter",
+    "addedBy":"test",
+    "description":"chal",
+    "price":998,
+    "quanity":2
+},
+    {
+"id":47,
+    "productName":"test3after",
+    "addedBy":"hhdd",
+    "description":"huugdd",
+    "price":7889,
+    "quanity":8
+},
+{"id":48,
+    "productName":"testafter",
+    "addedBy":"hh",
+    "description":"huug",
+    "price":788,
+    "quanity":7
+}
+
+]
+
+{
+       
+        "productName": "product",
+        "price": 1333,
+        "quanity": 1,
+        "addedBy": "aglo",
+        "description": "hudugu",
+        "createdOn": "2022-09-02T08:28:56.241Z",
+        "updatedOn": null,
+        "category": {
+           
+            "categoryName": "ihhj",
+            "isActive": "n",
+            "addedBy": "addedh",
+            "createdDate": "2022-09-04T17:30:50.253Z",
+            "deletedDate": null
+        }
+    }
+/cat/:categoryName  
+
+http://lp-5cd84715hz:3000/categories/del-product/57   ////delete product for existing category
+
+query builder:is used when default is not sufficient most of caeses or when we use complex query .we have to fetch data ditween diffrent diffrent tables.
+
+2/09 
+in prevoius session we discussed custom respository
+standard ,abstarct class,entity manager
+we create custom repository to create and use own methods for expose get,put post all we can expose
+ and in services we can inject custoom repository
+
+also discussed how can we update user as well profile by only use of save method we can use update as 
+well but in one method we can add and update as well so its reccomended to use.
+
+we need logger to when we want to monitor and see track logs for inserting fetch details.
+then we discussed about logger:when something went wrong we can see in loggger
+we can create constant file and use it
+logger can be  used in controller,service ,repository
+but most of we use in services
+nest provide log  that is buildin which is used in dev mode 
+
+custom logger :when we want to store log message externally then its not possible in build so we create custom logger
+
+
+in buildin will  disply on server
+forr external we can use so we have to external logger mechnicsum
+
+will crete one instance and we will try to override exsiting one.
+you can define and restric what kind of logger you want to disply in application level
+
+
+how to disable logger :logger:false
+how to select only few them like want to give only warning or error so we can custmoze
+
+how can we tell from this class this log generated so we have to put
+logger=new logger(categoryService.name)
+
+log:general purpose logging of important information
+warning:unhandled issue that is not fatal or destructive
+error:to disply error we use error logger
+varbose:information providing insight about the behaviour of the application intenteded for operation:support team
+debug:useful information that can help us debug that logic in case of an error
+
+how to extend : customlogger
+
+
+
+
+
+
+
+
+
+data is used every time we hit data is good or not
+caching mechnisum
+
+ It can be defined as the breaking of code into different modules, also known as modularisation, where the aspect is the key unit of modularity.
+5/09
+
+intercepter handle or intercept you request and response
+Interceptors
+An interceptor is a class annotated with the @Injectable() decorator and implements the NestInterceptor interface.
+Interceptors have a set of useful capabilities which are inspired by the Aspect Oriented Programming (AOP) technique. They make it possible to:
+
+bind extra logic before / after method execution
+transform the result returned from a functioncd shop-app
+transform the exception thrown from a function
+extend the basic function behavior
+completely override a function depending on specific conditions (e.g., for caching purposes)
+
+
+
+for multiple person or requiremebt mailfunction/module not required so we have to specify to whom we required to show 
+mail module not inislized in case when we used in method and used lazyloading after dependency injecttion of lazy loading
+
+Lazy-loading modules
+By default, modules are eagerly loaded, which means that as soon as the application loads, so do all the modules, whether or not they are immediately necessary. 
+Lazy loading can help decrease bootstrap time by loading only modules required by the specific serverless function invocation.
+ 
+In addition, you could also load other modules asynchronously once the serverless function is "warm" to speed-up the bootstrap time for subsequent calls even further (deferred modules registration).
+
+
+Middleware
+Middleware is a function which is called before the route handler. 
+Middleware functions have access to the request and response objects, and the next() middleware function in the application’s request-response cycle.
+ The next middleware function is commonly denoted by a variable named next.
+
+Middleware  excecute in between somethingLike when client hit http(get)
+its execute bofue you route handerler(request handler) excecute which have excess to request response onject
+diffrence beetween
+interceptor have excute before reuest handler execute and after handler excecute 
+ so it have result set but in middle ware we dont have response becuse it called before request handler
+
+Middleware functions can perform the following tasks:
+execute any code.
+make changes to the request and the response objects.
+end the request-response cycle.
+call the next middleware function in the stack.
+if the current middleware function does not end the request-response cycle, it must call next() to pass control to the next middleware function. Otherwise, the request will be left hanging.
+
+person is authorise or not or you want to log something
+redis
+
+multiple times its loading by use middleawre
+/category
+storing in catche
+
+Route wildcards#
+Pattern based routes are supported as well. For instance, the asterisk is used as a wildcard, and will match any combination of characters:
+
+
+forRoutes({ path: 'ab*cd', method: RequestMethod.ALL });
+The 'ab*cd' route path will match abcd, ab_cd, abecd, and so on. The characters ?, +, *, and () may be used in a route path, and are subsets of their regular expression counterparts. The hyphen ( -) and the dot (.) are interpreted literally by string-based paths.
+
+Excluding routes#
+At times we want to exclude certain routes from having the middleware applied. We can easily exclude certain routes with the exclude() method. This method can take a single string, multiple strings, or a RouteInfo object identifying routes to be excluded, as shown below:
+
+ @UseInterceptors(ResponseInterceptor)
+
+consumer
+  .apply(LoggerMiddleware)
+  .exclude(
+    { path: 'cats', method: RequestMethod.GET },
+    { path: 'cats', method: RequestMethod.POST },
+    'cats/(.*)',
+  )
+  .forRoutes(CatsController);
+
+Functional middleware#
+The LoggerMiddleware class we've been using is quite simple.
+ It has no members,
+ no additional methods, and no dependencies. Why can't we just define it in a simple function 
+instead of a class? In fact, we can. This type of middleware is called functional middleware. 
+Let's transform the logger middleware from class-based into functional middleware to illustrate the difference:
+
+ type orm:
+TypeORM:object realtinal mapper library running in node.js written in TS
+Entity is a class that maps to a database table (or collection when using MongoDB). You can create an entity by defining a new class and mark it with @Entity():
+
+Eager relations are loaded automatically each time you load entities from the database. 
+
+In order to extend Repository functionality you can use .extend method of Repository class: by use of custom repository
+also we can use entitymanager,
+and Provides abstract class for custom repositories that do not inherit from original orm Repository. Contains all most-necessary methods to simplify code in the custom repository. All methods are protected thus not exposed and it allows to create encapsulated custom repository. 
+
+
+06/09
+
+
+$ npm i bcrypt
+$ npm i -D @types/bcrypt
+npm install bcryptjs
+in previous session we discussed about how can we encrypte pasword:
+
+if we donot want show password to every one we have to hash our password,how can be ecrypit pass:
+npm bcrypt :it help to hash our password 
+hash convert our pass in diffrent formate so no body able to guess it
+but many use provide same pass so its easy to guess
+in hash we cant decrypt back
+in rainbow table they have plain text 
+A rainbow table is a listing of all possible plaintext of encrypted passwords specific to a given hash algorithm.so its easy to hack
+so we use salt
+salt:we will not directly store password 
+hash key will be append with salt (randum generated text/string)s
+
+first register
+for login 
+when we check valid password password user/we entered and encrypted passport we want to compare  then we use bcrypt.compare
+
+you are valid user then you will be autheticated and
+you will get token to access if you are valid user
+in authorisation you have set of access
+
+npm install @nestjs/jwt @nestjs/passport passport passport-jwt
+ to do authentication we use password jwt
+A Passport strategy for authenticating with a JSON Web Token.
+This module lets you authenticate endpoints using a JSON web token. It is intended to be used to secure RESTful endpoints without sessions
+
+Authentication:the process of determine wther users are who they claim to be,only valid user can enter in site after
+authorized:
+the process of determine what users can and cant not access
+role base
+client based
+
+to authenticate our user we have created JwtStretegy by extent PassportStrategy that user is valid or not we can check from this jwt stretegy 
+to project our application we require guards 
+
+guard will execute before handler 
+so to project our user we created jwtauth guards 
+so that vlod user can access any method or api
+after that we discussed about role based  authorisation
+
+so to implement we have to create role in entity and  roleauth guard we can project our application by 
+non authoriezed user like we give permition to admin but if we try to get data from only user data it will not display
+
+ 
+ @Roles(Role.Admin)
+      @UseGuards(JwtAuthGuard,RoleGuards)
+Helper class providing Nest reflection capabilities.
+
+7%-u+s7.2Q
+.\itdtpadmin
+
+7/09
+
+The passwords in a computer system are not stored directly as plain texts but are hashed using encryption.
+Password salting adds a random string (the salt) to a password before hashing it
+once haskey generated we cant change back
+
+
+
+08/09
+In previos session we discussed about versioning
+when project members wanted to add ned features aur wanted to do some enchancement so they will define versiong
+suppose you are working on version which is final an working on enhancement
+
+versioning allow you to have diffrent versions of yur controllers or indivisuals routes running within the same application
+Application change very often and it is not unsual that there are breaking changes that you need to make while still needing to support the pevious version of the application
+there are 3 types
+ uri versioning:the version will be passed within the url of the request
+2. header vesrsioning: a custom request header will specify the version
+3.media type versioning:the Accept header of the request will specify the vesrion
+custom versiong:
+ so if you are working on some new features so you cant remove previous one ,you have to specify versiong to so that previous work as is is not feected and you can work on other version
+
+uri is deafult one
+url versioning use the version passed with in url
+
+app.enableVersioning({
+type:versioningType.URI,});
+
+header versiong:header versing uses a custom user specified,request header to specify the vsersion
+where the value of the header will be the version to use for request
+app.enableVersioning({
+type:versioningType.HEADER,
+header:'Custom-Header'});
+example http requests for header versioning to enable header versioning for your application 
+Media type: media type versiong uses th accept header of the request to specify the version
+key value 
+Accept:applicationjson:v=2
+
+usages:controller: a version can be applied to a controller
+Multiple ersioning:version['1','2']
+version natural:version_neutral
+gloabl default versiom:if dont want to every conrtroller provie in main 
+
+for perform versing @version('1')
+bu default URI version 
+put in url
+
+chaching:
+when your data i not changing frequently then use chaching every time hit data base its take more time if we have large data.
+in memory caching internal storage
+npm install -D @types/cache-manager
+
+We havw lot od data we have to fetch again & again .we call every time from database then it will take time.so we can store in cache.the data which is frequently bot changing we can store
+just like dropdown
+
+internal 
+manuslly
+
+//app.enableVersioning();
+
+ 
+
+  // app.enableVersioning({
+
+  //   type: VersioningType.URI,
+
+  //   defaultVersion: ['1', '2', '3']
+
+  // })
+
+
+
+  app.enableVersioning({
+
+    type: VersioningType.HEADER,
+if 
+    header: 'cnc-header-name',
+
+    defaultVersion: ['1', '2', '3']
+
+  })
+
+{
+    "firstName":"saumya",
+     "lastName":"chaubey",
+     "emailId":"c@gml.com",
+     "password":"xyz",
+      "profile": {
+      
+          "imageName":"image",
+           "imageContent":"content"
+          }
+    
+}
+
+
+9/9
+npm i --save @nestjs/event-emitter
+Listening to Events#
+To declare an event listener, decorate a method with the @OnEvent() decorator preceding the method definition containing the code to be executed, as follows:
+
+@OnEvent('**')
+
+With this pattern, you can, for example, create an event listener that catches all events.
+
+
+@OnEvent('**')
+handleEverything(payload: any) {
+  // handle and process an event
+}
+
+
+Task Scheduling
+Task scheduling allows you to schedule arbitrary code (methods/functions) to execute at a fixed date/time, at recurring intervals, or once after a specified interval. In the Linux world, this is often handled by packages like cron at the OS level. For Node.js apps, there are several packages that emulate cron-like functionality. Nest provides the @nestjs/schedule package, which integrates with the popular Node.js cron package. We'll cover this package in the current chapter.
+
+
+before each
+before all
+
+
+
+Lifecycle Events
+A Nest application, as well as every application element, has a lifecycle managed by Nest.
+ Nest provides lifecycle hooks that give visibility into key lifecycle events, and the ability to act
+ (run registered code on your module, injectable or controller) when they occur.
+ We can divide the overall lifecycle into three phases: initializing, running and terminating.
+
+
+
+Lifecycle hook method	Lifecycle event triggering the hook method call
+onModuleInit()	:Called once the host module's dependencies have been resolved.
+onApplicationBootstrap():	Called once all modules have been initialized, but before listening for connections.
+onModuleDestroy()*:	Called after a termination signal (e.g., SIGTERM) has been received.
+beforeApplicationShutdown()*:	Called after all onModuleDestroy() handlers have completed (Promises resolved or rejected);
+once complete (Promises resolved or rejected), all existing connections will be closed (app.close() called).
+onApplicationShutdown()*:	Called after connections close (app.close() resolves).
+
+
+
+Task Scheduling
+Task scheduling allows you to schedule arbitrary code (methods/functions) to execute at a fixed date/time, 
+at recurring intervals, or once after a specified interval. In the Linux world, this is often handled by packages like cron at the OS level.
+ For Node.js apps, there are several packages that emulate cron-like functionality. Nest provides the @nestjs/schedule package, which integrates with the popular Node.js cron package. We'll cover this package in the current chapter.
+
+$ npm install --save @nestjs/schedule
+$ npm install --save-dev @types/cron
+
+The @Cron() decorator supports all standard cron patterns:
+* * * * * *
+| | | | | |
+| | | | | day of week
+| | | | months
+| | | day of month
+| | hours
+| minutes
+seconds (optional)
+
+
+
+@ApiHeader({
+  //name:'V-header-name',
+  //enum:[1,2,3],
+  //description:'Specify Version Number'
+
+}) user ka hai user controller to apply header
+
+http://lp-5cd84715hz:3000
+
+
+Unit test cases in any application can detect bugs early, 
+improve the quality of code, simplify the debugging process and reduce cost.
+ Let's say we have the below files in a NestJS module named CatModule and I will demonstrate how to write unit test case for our file cats. controller.
+
+
+if you want to opem for every one
+npm i @nestjs/common
+Hi maam,  
+I am getting same issue from yesterday and stuck but not find solution.Can i share my screen?
+
+
+
+
+
+
+
+
+
+
+
+{
+    "productName": "productt",
+    "price": 1333,
+    "quanity": 1,
+    "addedBy": "aglo",
+    "description": "hudugu",
+    "createdOn": "2022-09-02T08:28:56.241Z",
+    "updatedOn": null,
+    "category": {
+        "categoryName": "ihhji",
+        "isActive": "n",
+        "addedBy": "addedhhjh",
+        "createdDate": "2022-09-04T17:30:50.253Z",
+        "deletedDate": null,
+        "id": 82
+    },
+    "id": 82
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+{
+ "userName":"abc@hcl.com",
+    "password":"123"
+
+ "userName":"shwe@hcl.com",
+    "password":"1234"}
+
+
+{"name":"Samya",
+"address":"xyz",
+"userName":"abc@hcl.com",
+"password":"123",
+"mobileNumber":"876543456",
+"gender":"female",
+"role":"seller",
+"petDetails":[{  
+  "petName": "dog",
+  "age": 3,
+  "price": 500,
+  "isAviableForSell": "Y",
+  "detailsAddedBy": "Samya"
+}
+]
+}
+"name":"samya",
+    "petName": "dog",
+  "age": 3,
+  "price": 500,
+  "isAviableForSell": "Y",
+  "detailsAddedBy": "Samya"
+    
+
+
+{
+ "name":"Shweta",
+"address":"xyz",
+"userName":"shwe@hcl.com",
+"password":"1234",
+"mobileNumber":"876543459",
+"gender":"female",
+"role":"buyer",
+"petDetails":[{  
+  "petName": "cat",
+  "age": 3,
+  "price": 500,
+  "isAviableForSell": "Y",
+  "detailsAddedBy": "Shweta"
+}
+]
+}
+
+{
+    "id":2,
+    "petDetails":[{
+        "id":1
+    }]
+}
+
+npm install cache-manager-redis-store
+///sell
+{
+"petName": "dogg",
+  "age": 3,
+  "price": 500,
+  "isAviableForSell": "Y",
+  "user":
+  {
+      "id":2
+  }
+}
+
+ @ApiProperty()
+    id: number
+    @ApiProperty()
+    orderDescription:string;
+    /**petid mandatory */
+  
+    @ApiProperty()
+    user: User
+      /**petdetails should be matched */
+    @ApiProperty()
+    petDetails: PetDetails[]
+
+
+
+import { ApiProperty } from '@nestjs/swagger';
+import { IsString } from 'class-validator';
+
+
+/**product object creted */
+export class PetDetailsDTO {
+  /**Api object creted */
+  @ApiProperty()
+  id: number;
+  /**Api property creted */
+  @ApiProperty()
+  /**string object creted */
+  @IsString()
+  /**pet name object creted */
+  petName: string
+  /**string object created */
+  @ApiProperty()
+  petage: number
+  @ApiProperty()
+  petprice: number
+  @ApiProperty()
+  isAviableForSell: string
+  @ApiProperty()
+  ownerId:number
+  @ApiProperty()
+  user: User;
+
+
+
+}
+//registration
+{
+    "userName": "Shweta",
+    "address": "xyz",
+    "emailId": "sahj@hcl.com",
+    "password": "1234",
+    "role":"admin"
+    
+}
+
+//add hotel
+
+{
+    "hotelName":"Obria",
+    "hotelAddress":"xyz",
+    "items":[{
+        "itemsName":"bb",
+        "typeOfFood":"veg",
+        "price":56,
+        "quantity":76,
+        "status":"Available"
+    }]
+}
+/post  add-items
+{
+    "itemsName":"dahi",
+    "typeOfFood":"veg",
+    "price":500,
+    "quantity":2,
+    "userId":5,
+    "status":"Available",
+    "hotels":{
+        "hotelId":2
+    }
+}
+//post  add for perticular  hotel   /items
+{
+    "itemsName":"paneermasala",
+    "typeOfFood":"veg",
+    "price":500,
+    "quantity":27,
+    "status":"Available",
+    "hotels":{
+        "hotelId":2
+    }
+}
+
+
+///order
+{
+   "itemId":4,
+    "hotelName":"Taj",
+    "items":[{
+             
+           "itemId":4,
+        "itemsName":"paneermasala",
+        "typeOfFood":"veg",
+    "price":500,
+    "quantity":27
+   
+   
+    }],
+    "user":{
+        "id":1
+    }
+}
+
+
+
+Fetch only required fields from table using repo
+
+
+
+async allPets(): Promise<PetDTO[]> {
+
+        return await this.petRepo.find(
+
+            {
+
+                relations: ['user'],
+
+                select:
+
+                {
+
+                    id: true, petName: true, age: true, status: true,
+
+                    user: {
+
+                        id: true,
+
+                        firstName: true,
+
+                        lastName: true
+
+                    }
+
+                }
+
+            }
+
+        )
+
+    }
+///query builder
+This.createQueryBuilder('foo')
+ .where({ id: 1})
+ .select(['foo.id', 'foo.createdAt', 'bar.id', 'bar.name'])
+ .leftJoin('foo.bars', 'bar')  // bar is the joined table
+ .getMany();
+
+//jest.spyOn(bcrypt, 'hash').mockImplementation((pass, salt, cb) => cb(null, ''))
+
+C:\Users\samya.c\Documents\Node.js\practice-test>
+
+
+{
+     "seatNumber":2,
+    "seatsstatus":"Available",
+    "typeofseats":"sleeper",
+   "price":45,
+    "trainId":1,
+    "trains":{
+        "trainId":1
+    }
+
+}
+
+200 - success/ok
+201 - created
+202 - accepted
+204 - no content
+301 - moved permanently
+400 - Bad request
+401 - unauthorized
+403 - Forbidden
+404 - not fond
+406 - Not acceptable
+409 - Conflict
+500 - Internal server error
+502 - Bad gateway
+503 - Service unavailable
+
+504 - Gateway timeout
+
+node advantage features js npm,nest js advancatge,subquery,promise all,typeorm,interceptors,exception filter,javacript es 6 features,caching,chalanges,to solve issues,thow you cath new technology,status code,
+
+The optional chaining (?.) operator accesses an object's property or calls a function. If the object is undefined or null, it returns undefined instead of throwing an error.
+Types of Errors
+While coding, there can be three types of errors in the code:
+
+Syntax Error: When a user makes a mistake in the pre-defined syntax of a programming language, a syntax error may appear.
+Runtime Error: When an error occurs during the execution of the program, such an error is known as Runtime error. The codes which create runtime errors are known as Exceptions. Thus, exception handlers are used for handling runtime errors.
+Logical Error: An error which occurs when there is any logical mistake in the program that may not produce the desired output, and may terminate abnormally. Such an error is known as Logical error.
+promise,any, number, string ,Boolean array,
+
+[9/22 6:37 PM] Radha Nanjundaswamy
+NodeJS is an asynchronous event-driven JavaScript runtime environment designed to build scalable network applications
+
+[9/22 6:37 PM] Radha Nanjundaswamy
+Asynchronous here refers to all those functions in JavaScript that are processed in the background without blocking any other request.
+
+event loop,bribuild modules of nodejs
+http methods
+[9/22 3:28 PM] Rajashree Betageri
+ES6 concepts, spread, rest, arrow functions,
+array flat, destructuring , data types in js, let and var difference
+hoisting 
+modules import, export 
+normal function vs arrow function
+
+[9/22 3:29 PM] Rajashree Betageri
+I will send if I remember other topics
+
+[9/22 3:29 PM] Rajashree Betageri
+set, map 
+
+[9/22 5:31 PM] Rajashree Betageri
+exception handling, error handling
+
+[9/22 5:31 PM] Rajashree Betageri
+try catch finally
+
+[9/22 6:33 PM] Rajashree Betageri
+Typescript datatypes :
+
+string =>
+let value:string = "Rajashree";
+
+
+number =>
+let age:number = 12;
+
+
+boolean =>
+let bool:boolean = true;
+
+
+array =>
+let array:string[] = ["1","2","3","4"]
+let array1:number[] = [1,2,3,4,5];
+
+
+any =>
+let anyValue:any
+anyValue= "Typescript";
+
+
+unknown =>
+let unknownValue: unknown;
+unknownValue = true;
+
+
+union =>
+let arr:number[]|string[];
+arr = [1,2,4]
+arr = ["Mumbai","Pune","Delhi"]
+
+
+tuple =>
+let mine: [number, string];
+mine = [121, 'bacon'];
+
+1264104000063629
+interface =>
+interface Iobject {    name:string,    id:number,    test: ()=>string
+}
+var userObject:Iobject = {    name:"John",    id:12,    test: ():string =>{return "Hi"}
+}
+function =>
+function test(): string {    console.log('Hello')
+}
+
+
+class
+
+
+enum =>
+enum months {    Jan = "Jan",    Feb = "Feb",    Mar = "Mar",    Apr = "Apr",    Jun = "Jun"  };  console.log(months.Jan);
+
+ agile, devops and git basics
+Optional chaining
+
+
+[9/29 12:34 AM] Radha Nanjundaswamy
+Wat are the best practices you need to consider in Nestjs as part of Performance turning ?
+ like 1
+
+[9/29 12:37 AM] Radha Nanjundaswamy
+1. Cashing frequently accessed relatively static data (only get method /api)
+2. Lazy loading modules 
+3. Use default injection scope - don’t use request scope or transient scope 
+4 don’t use new when your binding interceptor/middleware  guard in method level or controller level
+ like 1
+
+[9/29 12:37 AM] Radha Nanjundaswamy
+Atleast these points you can say
+
+[9/29 12:37 AM] Radha Nanjundaswamy
+We have discussed
+
+[9/29 12:37 AM] Radha Nanjundaswamy
+There are few more, just thought to remind
+
+[9/29 12:39 AM] Radha Nanjundaswamy
+*Don’t use  any data types in typescript it will impact performance- it is not recommended
+ like 1
+
+[9/29 12:40 AM] Radha Nanjundaswamy
+Check why or how in google
+
+[9/29 12:41 AM] Radha Nanjundaswamy
+Radha Nanjundaswamy 1. Cashing frequently accessed relatively static data (only get method /api) 2. Lazy loading modules 3. Use default injection scope - don’t use request scope or transient scope 4 don’t use…
+5. Use indexing in database table
+
+[9/29 12:43 AM] Radha Nanjundaswamy
+* 5 nodejs modules we discussed and used without installing - os , path , http, fs and events
+
+[9/29 12:43 AM] Radha Nanjundaswamy
+Radha Nanjundaswamy * 5 nodejs modules we discussed and used without installing - os , path , http, fs and events
+These are the 5 modules
+
+[9/29 12:44 AM] Radha Nanjundaswamy
+Go throw sync , a sync , try catch , finally , blocking and non blocking , with example
+
+[9/29 12:45 AM] Radha Nanjundaswamy
+Talk about internal stirage and external storage radish
+
+[9/29 12:46 AM] Radha Nanjundaswamy
+When server stop - Data will be there in external storage in redis until TTL expire
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
